@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Polarizados – Consultas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#121214">
+<meta name="description" content="Consultas, reclamos y garantías de polarizados – Mc-LarenS">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Polarizados">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#121214; --bg-deep:#0B0B0C; --surface:#18181B; --border:#27272A;
+  --border-red:rgba(239,68,68,.22); --text:#fff; --muted:#A1A1AA; --accent:#E10600;
+  --heading:'Michroma','Chakra Petch',sans-serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  font-family:var(--body); color:var(--text); background-color:var(--bg);
+  background-image:
+    radial-gradient(ellipse at 85% 15%, rgba(239,68,68,.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 15% 85%, rgba(249,115,22,.05) 0%, transparent 45%),
+    radial-gradient(rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size:100% 100%,100% 100%,18px 18px; background-attachment:fixed;
+  min-height:100vh; display:flex; flex-direction:column;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+header{background:var(--bg-deep); border-bottom:2px solid rgba(239,68,68,.6);
+  padding:calc(14px + env(safe-area-inset-top)) 16px 14px; display:flex; justify-content:center}
+header img{height:34px; max-width:100%; width:auto; display:block}
+main{flex:1; width:100%; max-width:520px; margin:0 auto; padding:28px 18px 24px}
+h1{font-family:var(--heading); text-transform:uppercase; letter-spacing:.04em;
+  font-size:1.25rem; line-height:1.3; margin:8px 0 6px; text-align:center}
+.sub{color:var(--muted); text-align:center; margin:0 0 26px; line-height:1.5}
+.card{background:var(--surface); border:1px solid var(--border-red); border-radius:12px; padding:18px; margin-bottom:16px}
+.btn{display:flex; align-items:center; justify-content:center; width:100%; min-height:56px;
+  background:var(--accent); color:#fff; border:0; border-radius:10px; font:700 1.05rem var(--body);
+  text-decoration:none; cursor:pointer; padding:0 18px; letter-spacing:.02em}
+.btn:active{filter:brightness(.9)}
+.btn.secondary{background:transparent; border:1px solid var(--accent); min-height:48px; font-size:.95rem; font-weight:600}
+.card h2{font-family:var(--heading); text-transform:uppercase; letter-spacing:.04em; font-size:.8rem; margin:0 0 10px}
+.card p,.card li{color:var(--muted); font-size:.92rem; line-height:1.55; margin:6px 0}
+.card ol{padding-left:20px; margin:8px 0 0}
+.card strong{color:#fff}
+.hidden{display:none!important}
+.stack{display:grid; gap:12px}
+.note{color:var(--muted); font-size:.8rem; text-align:center; margin-top:18px; line-height:1.5}
+.badge{display:inline-block; border:1px solid var(--border-red); border-radius:99px; padding:2px 10px; font-size:.75rem; color:var(--muted); margin-bottom:6px}
+.ico{display:inline-block; border:1px solid var(--border); border-radius:6px; padding:0 6px; color:#fff; font-size:.85rem}
+footer{text-align:center; color:var(--muted); font-size:.72rem; padding:14px; border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<header><img src="icons/logo-white-red.png" alt="Mc-LarenS Auto Accesorios"></header>
+<main>
+  <h1>Polarizados<br>Consultas, reclamos y garantías</h1>
+  <p class="sub" id="sub">Abrí el buscador con tu cuenta de Google autorizada.</p>
+
+  <div class="stack">
+    <a id="open" class="btn" href="https://script.google.com/macros/s/AKfycbzvMuQ5G_ftGMtFtQ99dQdMA2KAvcYFoYXYNpbxMnjwb9o9whaSfwGJK-L5gBYnSGk1/exec" rel="noopener">Abrir buscador</a>
+    <button id="install" class="btn secondary hidden" type="button">⬇ Instalar app</button>
+  </div>
+
+  <div id="installed" class="card hidden" style="margin-top:16px">
+    <h2>App instalada</h2>
+    <p>Ya estás usando la app. Si el buscador no se abrió solo, tocá <strong>Abrir buscador</strong>.</p>
+  </div>
+
+  <div id="ios" class="card hidden" style="margin-top:16px">
+    <h2>Instalar en iPhone / iPad</h2>
+    <ol>
+      <li>Abrí esta página en <strong>Safari</strong>.</li>
+      <li>Tocá el botón <span class="ico">Compartir ⬆︎</span>.</li>
+      <li>Elegí <strong>Agregar a pantalla de inicio</strong>.</li>
+      <li>Tocá <strong>Agregar</strong>. Queda el ícono como una app más.</li>
+    </ol>
+  </div>
+
+  <div id="manual" class="card" style="margin-top:16px">
+    <h2>¿No te aparece “Instalar app”?</h2>
+    <p><strong>Android (Chrome):</strong> menú ⋮ → <strong>Instalar app</strong> o <strong>Agregar a pantalla principal</strong>.</p>
+    <p><strong>Compu (Chrome / Edge):</strong> ícono de instalar ⊕ al final de la barra de direcciones, o menú ⋮ → <strong>Transmitir, guardar y compartir → Instalar página como app</strong>.</p>
+  </div>
+
+  <p class="note">El buscador es solo para personal autorizado. Si Google te pide permiso la primera vez, aceptá: solo ve tu correo para saber quién consulta.</p>
+</main>
+<footer>Mc-LarenS · Mundo de Accesorios · Polarizados</footer>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var URL_APP = $('open').href;
+  var standalone = window.matchMedia('(display-mode: standalone)').matches ||
+                   window.matchMedia('(display-mode: minimal-ui)').matches ||
+                   window.navigator.standalone === true;
+  var ua = navigator.userAgent;
+  var isIOS = /iphone|ipad|ipod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  // Service worker (necesario para que Chrome/Edge ofrezcan instalar).
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(e){ console.warn('SW', e); });
+    });
+  }
+
+  // Botón de instalar (Chrome/Edge/Android).
+  var deferred = null;
+  window.addEventListener('beforeinstallprompt', function(e){
+    e.preventDefault(); deferred = e;
+    if (!standalone) $('install').classList.remove('hidden');
+  });
+  $('install').addEventListener('click', function(){
+    if (!deferred) return;
+    deferred.prompt();
+    deferred.userChoice.then(function(){ deferred = null; $('install').classList.add('hidden'); });
+  });
+  window.addEventListener('appinstalled', function(){
+    $('install').classList.add('hidden');
+    $('manual').classList.add('hidden');
+  });
+
+  // Instrucciones para iOS (Safari no tiene beforeinstallprompt).
+  if (isIOS && !standalone) { $('ios').classList.remove('hidden'); $('manual').classList.add('hidden'); }
+
+  if (standalone) {
+    $('manual').classList.add('hidden');
+    $('installed').classList.remove('hidden');
+    $('sub').textContent = 'Abriendo el buscador…';
+    // Abrir solo una vez por sesión para no atrapar el botón "atrás".
+    var auto = !/[?&#]noauto/.test(location.href);
+    try { if (sessionStorage.getItem('opened')) auto = false; } catch(e){}
+    if (auto) {
+      try { sessionStorage.setItem('opened', '1'); } catch(e){}
+      setTimeout(function(){ location.href = URL_APP; }, 600);
+    } else {
+      $('sub').textContent = 'Tocá “Abrir buscador” para entrar.';
+    }
+  }
+})();
+</script>
+</body>
+</html>
