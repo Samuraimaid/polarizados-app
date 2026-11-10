@@ -56,6 +56,21 @@ h1{font-family:var(--heading); text-transform:uppercase; letter-spacing:.04em;
 .note{color:var(--muted); font-size:.8rem; text-align:center; margin-top:18px; line-height:1.5}
 .badge{display:inline-block; border:1px solid var(--border-red); border-radius:99px; padding:2px 10px; font-size:.75rem; color:var(--muted); margin-bottom:6px}
 .ico{display:inline-block; border:1px solid var(--border); border-radius:6px; padding:0 6px; color:#fff; font-size:.85rem}
+.btn svg{width:22px;height:22px;margin-right:10px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.actions{display:grid; gap:12px; grid-template-columns:1fr}
+@media (min-width:900px){ main{max-width:720px} .actions.two{grid-template-columns:1fr 1fr} }
+.btn.outline{background:transparent; border:2px solid var(--accent)}
+.btn.outline:hover,.btn.outline:focus-visible{background:rgba(225,6,0,.12)}
+.btn:focus-visible{outline:2px solid #fff; outline-offset:2px}
+#formview{position:fixed; inset:0; z-index:50; display:none; flex-direction:column; background:var(--bg-deep)}
+#formview.on{display:flex}
+#formview .bar{display:flex; align-items:center; gap:10px; padding:calc(8px + env(safe-area-inset-top)) 12px 8px; background:var(--bg-deep); border-bottom:2px solid rgba(239,68,68,.6)}
+#formview .bar h3{font-family:var(--heading); text-transform:uppercase; letter-spacing:.04em; font-size:.8rem; margin:0; flex:1; text-align:center}
+#formview .bar .btn{width:auto; min-height:40px; font-size:.85rem; padding:0 14px; text-decoration:none}
+#formview .bar .btn svg{width:18px;height:18px;margin-right:6px}
+#formview iframe{flex:1; width:100%; border:0; background:#fff}
+#formview .hint{background:var(--surface); color:var(--muted); font-size:.8rem; padding:6px 12px; text-align:center; border-bottom:1px solid var(--border)}
+#formview .hint a{color:#fff}
 footer{text-align:center; color:var(--muted); font-size:.72rem; padding:14px; border-top:1px solid var(--border)}
 </style>
 </head>
@@ -63,10 +78,13 @@ footer{text-align:center; color:var(--muted); font-size:.72rem; padding:14px; bo
 <header><img src="icons/logo-white-red.png" alt="Mc-LarenS Auto Accesorios"></header>
 <main>
   <h1>Polarizados<br>Consultas, reclamos y garantías</h1>
-  <p class="sub" id="sub">Abrí el buscador con tu cuenta de Google autorizada.</p>
+  <p class="sub" id="sub">Consultá trabajos anteriores o registrá un nuevo ingreso, con tu cuenta de Google autorizada.</p>
 
-  <div class="stack">
-    <a id="open" class="btn" href="https://script.google.com/macros/s/AKfycbzvMuQ5G_ftGMtFtQ99dQdMA2KAvcYFoYXYNpbxMnjwb9o9whaSfwGJK-L5gBYnSGk1/exec" rel="noopener">Abrir buscador</a>
+  <div class="actions two">
+    <a id="open" class="btn" href="https://script.google.com/macros/s/AKfycbzvMuQ5G_ftGMtFtQ99dQdMA2KAvcYFoYXYNpbxMnjwb9o9whaSfwGJK-L5gBYnSGk1/exec" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Abrir buscador</a>
+    <a id="newform" class="btn outline" href="https://docs.google.com/forms/d/e/1FAIpQLSdf_jYxRDS4jZ4fY_8T9dDdVJCgtrpOhcGmOfN4vwULvUX-Ew/viewform" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11v6"/><path d="M9 14h6"/></svg>Nuevo ingreso</a>
+  </div>
+  <div class="actions" style="margin-top:12px">
     <button id="install" class="btn secondary hidden" type="button">⬇ Instalar app</button>
   </div>
 
@@ -91,14 +109,23 @@ footer{text-align:center; color:var(--muted); font-size:.72rem; padding:14px; bo
     <p><strong>Compu (Chrome / Edge):</strong> ícono de instalar ⊕ al final de la barra de direcciones, o menú ⋮ → <strong>Transmitir, guardar y compartir → Instalar página como app</strong>.</p>
   </div>
 
-  <p class="note">El buscador es solo para personal autorizado. Si Google te pide permiso la primera vez, aceptá: solo ve tu correo para saber quién consulta.</p>
+  <p class="note">El buscador es solo para personal autorizado. Si Google te pide permiso la primera vez, aceptá: solo ve tu correo para saber quién consulta. Para registrar un ingreso también tenés que haber iniciado sesión en Google.</p>
 </main>
+<div id="formview" role="dialog" aria-label="Nuevo ingreso de polarizado">
+  <div class="bar">
+    <button id="fvback" class="btn outline" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>Volver</button>
+    <h3>Nuevo ingreso</h3>
+    <a id="fvext" class="btn outline" href="https://docs.google.com/forms/d/e/1FAIpQLSdf_jYxRDS4jZ4fY_8T9dDdVJCgtrpOhcGmOfN4vwULvUX-Ew/viewform" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Pestaña nueva</a>
+  </div>
+  <div class="hint">Si ves un error de Google o te pide iniciar sesión y no deja, usá <a id="fvext2" href="https://docs.google.com/forms/d/e/1FAIpQLSdf_jYxRDS4jZ4fY_8T9dDdVJCgtrpOhcGmOfN4vwULvUX-Ew/viewform" target="_blank" rel="noopener">Abrir en pestaña nueva</a>.</div>
+  <iframe id="fvframe" title="Formulario INGRESO DE POLARIZADOS" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-write"></iframe>
+</div>
+
 <footer>Mc-LarenS · Mundo de Accesorios · Polarizados</footer>
 
 <script>
 (function(){
   var $ = function(id){ return document.getElementById(id); };
-  var URL_APP = $('open').href;
   var standalone = window.matchMedia('(display-mode: standalone)').matches ||
                    window.matchMedia('(display-mode: minimal-ui)').matches ||
                    window.navigator.standalone === true;
@@ -134,17 +161,35 @@ footer{text-align:center; color:var(--muted); font-size:.72rem; padding:14px; bo
   if (standalone) {
     $('manual').classList.add('hidden');
     $('installed').classList.remove('hidden');
-    $('sub').textContent = 'Abriendo el buscador…';
-    // Abrir solo una vez por sesión para no atrapar el botón "atrás".
-    var auto = !/[?&#]noauto/.test(location.href);
-    try { if (sessionStorage.getItem('opened')) auto = false; } catch(e){}
-    if (auto) {
-      try { sessionStorage.setItem('opened', '1'); } catch(e){}
-      setTimeout(function(){ location.href = URL_APP; }, 600);
-    } else {
-      $('sub').textContent = 'Tocá “Abrir buscador” para entrar.';
-    }
+    $('sub').textContent = 'Elegí qué querés hacer.';
   }
+
+  // Nuevo ingreso: en pantallas anchas (compu) se abre dentro de la app; en celular, directo.
+  var FORM = $('newform').href;
+  var EMBED = FORM + (FORM.indexOf('?') < 0 ? '?' : '&') + 'embedded=true';
+  var wide = window.matchMedia('(min-width: 900px)');
+  var fv = $('formview'), fr = $('fvframe');
+  function openForm() {
+    if (!fr.getAttribute('src')) fr.setAttribute('src', EMBED);
+    fv.classList.add('on');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeForm() {
+    fv.classList.remove('on');
+    document.body.style.overflow = '';
+    fr.removeAttribute('src'); // libera el formulario; se recarga limpio al volver a abrir
+  }
+  $('newform').addEventListener('click', function(e) {
+    if (!wide.matches) return;            // celular: enlace directo
+    e.preventDefault();
+    history.pushState({ form: 1 }, '');
+    openForm();
+  });
+  $('fvback').addEventListener('click', function() {
+    if (history.state && history.state.form) history.back(); else closeForm();
+  });
+  window.addEventListener('popstate', function() { if (fv.classList.contains('on')) closeForm(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && fv.classList.contains('on')) $('fvback').click(); });
 })();
 </script>
 </body>
