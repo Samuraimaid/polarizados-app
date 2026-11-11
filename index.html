@@ -113,11 +113,11 @@ footer{text-align:center; color:var(--muted); font-size:.72rem; padding:14px; bo
 </main>
 <div id="formview" role="dialog" aria-label="Nuevo ingreso de polarizado">
   <div class="bar">
-    <button id="fvback" class="btn outline" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>Volver</button>
+    <button id="fvback" class="btn outline" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>Volver al inicio</button>
     <h3>Nuevo ingreso</h3>
     <a id="fvext" class="btn outline" href="https://docs.google.com/forms/d/e/1FAIpQLSdf_jYxRDS4jZ4fY_8T9dDdVJCgtrpOhcGmOfN4vwULvUX-Ew/viewform" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>Pestaña nueva</a>
   </div>
-  <div class="hint">Si ves un error de Google o te pide iniciar sesión y no deja, usá <a id="fvext2" href="https://docs.google.com/forms/d/e/1FAIpQLSdf_jYxRDS4jZ4fY_8T9dDdVJCgtrpOhcGmOfN4vwULvUX-Ew/viewform" target="_blank" rel="noopener">Abrir en pestaña nueva</a>.</div>
+  <div class="hint">Cuando termines de enviar, tocá <strong>Volver al inicio</strong>. Si ves un error de Google o te pide iniciar sesión y no deja, usá <a id="fvext2" href="https://docs.google.com/forms/d/e/1FAIpQLSdf_jYxRDS4jZ4fY_8T9dDdVJCgtrpOhcGmOfN4vwULvUX-Ew/viewform" target="_blank" rel="noopener">Abrir en pestaña nueva</a>.</div>
   <iframe id="fvframe" title="Formulario INGRESO DE POLARIZADOS" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-write"></iframe>
 </div>
 
@@ -164,10 +164,9 @@ footer{text-align:center; color:var(--muted); font-size:.72rem; padding:14px; bo
     $('sub').textContent = 'Elegí qué querés hacer.';
   }
 
-  // Nuevo ingreso: en pantallas anchas (compu) se abre dentro de la app; en celular, directo.
+  // Nuevo ingreso: se abre dentro de la app en todas las pantallas, con «Volver al inicio».
   var FORM = $('newform').href;
   var EMBED = FORM + (FORM.indexOf('?') < 0 ? '?' : '&') + 'embedded=true';
-  var wide = window.matchMedia('(min-width: 900px)');
   var fv = $('formview'), fr = $('fvframe');
   function openForm() {
     if (!fr.getAttribute('src')) fr.setAttribute('src', EMBED);
@@ -179,8 +178,9 @@ footer{text-align:center; color:var(--muted); font-size:.72rem; padding:14px; bo
     document.body.style.overflow = '';
     fr.removeAttribute('src'); // libera el formulario; se recarga limpio al volver a abrir
   }
+  // En todas las pantallas se abre dentro de la app (barra con «Volver al inicio»).
+  // Si Google bloquea el iframe (login / X-Frame-Options), queda el fallback «Pestaña nueva».
   $('newform').addEventListener('click', function(e) {
-    if (!wide.matches) return;            // celular: enlace directo
     e.preventDefault();
     history.pushState({ form: 1 }, '');
     openForm();
